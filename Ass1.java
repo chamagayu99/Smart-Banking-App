@@ -72,7 +72,7 @@ loop:
                     twoFlag=false;
                     clients=deposits(clients);
                     System.out.println();
-                    System.out.println("Do you want to add another ? [y/n]");
+                    System.out.println("Do you want to continue ? [y/n]");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         twoFlag=true;
                     }else {
@@ -85,7 +85,7 @@ loop:
                 do{
                     threeFlag=false;
                     clients=withdrawals(clients); 
-                    System.out.println("Do you want to add another ? [y/n]");
+                    System.out.println("Do you want to continue ? [y/n]");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         threeFlag=true;
                     }else {
@@ -99,7 +99,7 @@ loop:
                 do{
                     fiveFlag=false;
                     clients=checkBalances(clients); 
-                    System.out.println("Do you want to add another ? [y/n]");
+                    System.out.println("Do you want to continue ? [y/n]");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         fiveFlag=true;
                         continue loop;
@@ -374,7 +374,7 @@ loop:
                                 }
                         }
                         for(int i=0;i<clients.length;i++){
-                            if(accNumber==clients[i][0]){
+                            if(clients[i][0].equalsIgnoreCase(accNumber)){
                                 index=i;
                             }
                         }
@@ -392,7 +392,7 @@ loop:
             
                         if(index>-1){
                             System.out.println();
-                            System.out.printf("Current Balance: Rs.%,.2f",clients[index][2]);
+                            System.out.printf("Current Balance: Rs.%,.2f",Double.parseDouble(clients[index][2]));
                             System.out.println();
             
                             do{
@@ -403,29 +403,26 @@ loop:
             
                             if(withdraw<100){
                                 System.out.println();
-                                System.out.printf("%sInsufficient Amount2!%s",COLOR_RED_BOLD,RESET);
+                                System.out.printf("%sInsufficient Amount!%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                amountFlag3=true;
+                            }
+                            
+            
+                            double balanceAfterWithdraw=Double.parseDouble(clients[index][2])-withdraw;
+                            clients[index][2]=balanceAfterWithdraw+"";
+
+                            if(balanceAfterWithdraw<500){
+                                System.out.printf("%sInsufficient Balance!%s",COLOR_RED_BOLD,RESET);
                                 System.out.println();
                                 amountFlag3=true;
                             }
                             }while(amountFlag3);
-            
-                            double balanceAfterWithdraw=Double.parseDouble(clients[index][2])-withdraw;
-                            if(balanceAfterWithdraw<500){
-                                System.out.printf("%sInsufficient Balance!%s",COLOR_RED_BOLD,RESET);
+                            
+                                System.out.printf("New Balnace: %,.2f",Double.parseDouble(clients[index][2]));
                                 System.out.println();
-                            }else{
-                                clients[index][2]=balanceAfterWithdraw+"";
-                                System.out.printf("New Balnace: %,.2f",balanceAfterWithdraw);
-                                System.out.println();
-                            }
+                            
             
-                            System.out.println("Do you want to try again? [Y/N]");
-                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
-                                    withdrawFlag3=true;
-                                    continue;
-                                }else{
-                                    continue;
-                                }
                         }
                     
                 }while(withdrawFlag3);
