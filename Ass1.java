@@ -36,7 +36,7 @@ loop:
             System.out.println("[2] Deposits");
             System.out.println("[3] Withdrawals");
             System.out.println("[4] Transfer");
-            System.out.println("[5] Print statement");
+            System.out.println("[5] Check Balance");
             System.out.println("[6] Delete Account");
             System.out.println("[7] Exit");
 
@@ -98,13 +98,14 @@ loop:
                 case 5:
                 do{
                     fiveFlag=false;
-                    clients=checkBalances(clients); 
+                    clients=checkBalances(clients);
+                    System.out.println(); 
                     System.out.println("Do you want to continue ? [y/n]");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         fiveFlag=true;
-                        continue loop;
                     }else {
                         dashboardFlag=true; 
+                        continue loop;
                     }
                 }while(fiveFlag);
                 
@@ -492,7 +493,7 @@ loop:
                                 }
                         }
                         for(int i=0;i<clients.length;i++){
-                            if(accNumber==clients[i][0]){
+                            if(clients[i][0].equalsIgnoreCase(accNumber)){
                                 index=i;
                             }
                         }
@@ -511,7 +512,7 @@ loop:
                         if(index>-1){
                             System.out.printf("Name: %s",clients[index][1]); 
                             System.out.println();
-                            System.out.printf("Current Account Balance: Rs.%,.2f",clients[index][2]);
+                            System.out.printf("Current Account Balance: Rs.%,.2f",Double.parseDouble(clients[index][2]));
                             System.out.println();
             
                             if(Double.parseDouble(clients[index][2])>500){
@@ -519,14 +520,6 @@ loop:
                             System.out.printf("Amount that can be withdrawn: %,.2f",withdrawableBalance);
                             System.out.println();
                             }
-            
-                            System.out.println("Do you want to try again? [Y/N]");
-                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
-                                    checkBalanceFlag5=true;
-                                    continue;
-                                }else{
-                                    continue;
-                                }
                         }    
                 }while(checkBalanceFlag5);
                 return clients;
