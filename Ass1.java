@@ -13,7 +13,6 @@ public class Ass1{
         String title="💰 Welcome to Smart Banking App";
 
         String[][] clients=new String[0][3];
-        double[] balances=new double[0];
         
         boolean dashboardFlag=false;
         boolean flag=false;
@@ -25,7 +24,8 @@ public class Ass1{
         boolean fourFlag=false;
         boolean fiveFlag=false;
         boolean sixFlag=false;
-loop:
+
+        loop:
         do{
             dashboardFlag=false;
             System.out.println(clear);
@@ -94,7 +94,20 @@ loop:
                     }
                 }while(threeFlag);
                 
-                case 4:;
+                case 4:
+                do{
+                    fourFlag=false;
+                    clients=transfer(clients);
+                    System.out.println(); 
+                    System.out.println("Do you want to continue ? [y/n]");
+                    if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                        fourFlag=true;
+                    }else {
+                        dashboardFlag=true; 
+                        continue loop;
+                    }
+                }while(fourFlag);
+
                 case 5:
                 do{
                     fiveFlag=false;
@@ -647,4 +660,197 @@ loop:
         return clients;
     }
 
+    public static String[][] transfer(String clients[][]){
+        final String clear = "\033[H\033[2J";
+        final String COLOR_BLUE_BOLD = "\033[34;1m";
+        final String COLOR_RED_BOLD = "\033[31;1m";
+        final String RESET = "\033[0m";
+
+        String title5="Transfer";
+
+        boolean transferFlag4=false;
+        boolean accNumberFromFlag4=false;
+        boolean accNumberToFlag4=false;
+        boolean amountFlag4=false;
+
+        String accNumberFrom;
+        int indexFrom=-1;
+        String accNumberTo;
+        int indexTo=-1;
+
+        do{
+                    transferFlag4=false;
+                    System.out.println(clear);
+                    System.out.println("-".repeat(32));
+                    System.out.printf("%s%s%s \n",COLOR_BLUE_BOLD,title5,RESET);
+                    System.out.println("-".repeat(32));
+
+                    do{
+                        accNumberFromFlag4=false;
+                        System.out.print("Enter From A/C Number: ");
+                        accNumberFrom=scanner.nextLine().strip();
+            
+                        if(accNumberFrom.isBlank()){
+                            System.out.printf("%sA/C Number can't be empty%s",COLOR_RED_BOLD,RESET);
+                            System.out.println();
+                            System.out.println("Do you want to try again? [Y/N]");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                accNumberFromFlag4=true;
+                                continue;
+                            }
+                        }else if(!accNumberFrom.startsWith("SDB-")){
+                            System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
+                            System.out.println();
+                            System.out.println("Do you want to try again? [Y/N]");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                accNumberFromFlag4=true;
+                                continue;
+                            }
+                        }
+                        String num="";
+                        if(accNumberFrom.length()>4){
+                        num=accNumberFrom.substring(4);
+                        }
+                        int count=0;
+                        for(int i=0;i<num.length();i++){
+                            if(Character.isDigit(num.charAt(i))){
+                                count++;
+                            }
+                        }
+                        if(count==0 || count<5){
+                                System.out.printf("%sInvalid Acount Number%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                System.out.println("Do you want to try again? [Y/N]");
+                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                    accNumberFromFlag4=true;
+                                    continue;
+                                }
+                        }
+                        for(int i=0;i<clients.length;i++){
+                            if(clients[i][0].equalsIgnoreCase(accNumberFrom)){
+                                indexFrom=i;
+                            }
+                        }
+            
+                        if(indexFrom==-1){
+                            System.out.printf("%sNot Found%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                System.out.println("Do you want to try again? [Y/N]");
+                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                    accNumberFromFlag4=true;
+                                    continue;
+                                }
+                        }
+                        }while(accNumberFromFlag4);
+
+                        if(indexFrom>-1){
+                            System.out.printf("From A/C Name: %s",clients[indexFrom][1]); 
+                            System.out.println();
+                            System.out.printf("From Account Balance: Rs.%,.2f",Double.parseDouble(clients[indexFrom][2]));
+                            System.out.println();
+                        }
+                        System.out.println();
+                        do{
+                        accNumberToFlag4=false;
+                        System.out.print("Enter To A/C Number: ");
+                        accNumberTo=scanner.nextLine().strip();
+            
+                        if(accNumberTo.isBlank()){
+                            System.out.printf("%sA/C Number can't be empty%s",COLOR_RED_BOLD,RESET);
+                            System.out.println();
+                            System.out.println("Do you want to try again? [Y/N]");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                accNumberToFlag4=true;
+                                continue;
+                            }
+                        }else if(!accNumberTo.startsWith("SDB-")){
+                            System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
+                            System.out.println();
+                            System.out.println("Do you want to try again? [Y/N]");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                accNumberToFlag4=true;
+                                continue;
+                            }
+                        }
+                        String num="";
+                        if(accNumberTo.length()>4){
+                        num=accNumberTo.substring(4);
+                        }
+                        int count=0;
+                        for(int i=0;i<num.length();i++){
+                            if(Character.isDigit(num.charAt(i))){
+                                count++;
+                            }
+                        }
+                        if(count==0 || count<5){
+                                System.out.printf("%sInvalid Acount Number%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                System.out.println("Do you want to try again? [Y/N]");
+                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                    accNumberToFlag4=true;
+                                    continue;
+                                }
+                        }
+                        for(int i=0;i<clients.length;i++){
+                            if(clients[i][0].equalsIgnoreCase(accNumberTo)){
+                                indexTo=i;
+                            }
+                        }
+            
+                        if(indexTo==-1){
+                            System.out.printf("%sNot Found%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                System.out.println("Do you want to try again? [Y/N]");
+                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                    accNumberToFlag4=true;
+                                    continue;
+                                }
+                        }
+                        }while(accNumberToFlag4);
+
+                        if(indexTo>-1){
+                            System.out.printf("To A/C Name: %s",clients[indexTo][1]); 
+                            System.out.println();
+                            System.out.printf("To Account Balance: Rs.%,.2f",Double.parseDouble(clients[indexTo][2]));
+                            System.out.println();
+                        }
+
+                        System.out.println();
+                        System.out.print("Enter amount: ");
+                        int amount=scanner.nextInt();
+                        scanner.nextLine();
+
+                        do{
+                            amountFlag4=false;
+                        if(amount<100){
+                                System.out.println();
+                                System.out.printf("%sInsufficient Amount!%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                amountFlag4=true;
+                            }     
+            
+                            double balanceAfterTransferFrom=Double.parseDouble(clients[indexFrom][2])-amount;
+                            double balanceAfterTransferTo=Double.parseDouble(clients[indexTo][2])+amount;
+
+                            if(balanceAfterTransferFrom<500){
+                                System.out.printf("%sInsufficient Balance!%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                amountFlag4=true;
+                            }
+
+                            clients[indexFrom][2]=balanceAfterTransferFrom+"";
+                            clients[indexTo][2]=balanceAfterTransferTo+"";
+
+                            System.out.println();
+                            System.out.printf("New From A/C Balance: %.2f \n",Double.parseDouble(clients[indexFrom][2]));
+                            System.out.printf("New To A/C Balance: %.2f \n",Double.parseDouble(clients[indexTo][2]));
+                            System.out.println();
+
+                        }while(amountFlag4);
+
+        }while(transferFlag4);
+
+
+        return clients;
+    }
 }
