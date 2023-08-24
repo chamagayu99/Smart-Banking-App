@@ -109,7 +109,21 @@ loop:
                     }
                 }while(fiveFlag);
                 
-                case 6:;
+                case 6:
+                
+                do{
+                    sixFlag=false;
+                    clients=deleteAccount(clients);
+                    System.out.println(); 
+                    System.out.println("Do you want to continue ? [y/n]");
+                    if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                        sixFlag=true;
+                    }else {
+                        dashboardFlag=true; 
+                        continue loop;
+                    }
+                }while(sixFlag);
+                
                 case 7: System.exit(0);
             }
 
@@ -444,7 +458,7 @@ loop:
         String accNumber;
         int index=-1;
 
-    do{
+        do{
                     checkBalanceFlag5=false;
                     System.out.println(clear);
                     System.out.println("-".repeat(32));
@@ -524,4 +538,113 @@ loop:
                 }while(checkBalanceFlag5);
                 return clients;
     }
+
+    public static String[][] deleteAccount(String clients[][]){
+        final String clear = "\033[H\033[2J";
+        final String COLOR_BLUE_BOLD = "\033[34;1m";
+        final String COLOR_RED_BOLD = "\033[31;1m";
+        final String RESET = "\033[0m";
+
+        String title5="Delete Account";
+
+        boolean deleteAccountFlag6=false;
+        boolean accNumberFlag6=false;
+
+        String accNumber;
+        int index=-1;
+
+        do{
+                    deleteAccountFlag6=false;
+                    System.out.println(clear);
+                    System.out.println("-".repeat(32));
+                    System.out.printf("%s%s%s \n",COLOR_BLUE_BOLD,title5,RESET);
+                    System.out.println("-".repeat(32));
+
+                    do{
+                        accNumberFlag6=false;
+                        System.out.print("Enter A/C Number: ");
+                        accNumber=scanner.nextLine().strip();
+            
+                        if(accNumber.isBlank()){
+                            System.out.printf("%sA/C Number can't be empty%s",COLOR_RED_BOLD,RESET);
+                            System.out.println();
+                            System.out.println("Do you want to try again? [Y/N]");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                accNumberFlag6=true;
+                                continue;
+                            }
+                        }else if(!accNumber.startsWith("SDB-")){
+                            System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
+                            System.out.println();
+                            System.out.println("Do you want to try again? [Y/N]");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                accNumberFlag6=true;
+                                continue;
+                            }
+                        }
+                        String num="";
+                        if(accNumber.length()>4){
+                        num=accNumber.substring(4);
+                        }
+                        int count=0;
+                        for(int i=0;i<num.length();i++){
+                            if(Character.isDigit(num.charAt(i))){
+                                count++;
+                            }
+                        }
+                        if(count==0 || count<5){
+                                System.out.printf("%sInvalid Acount Number%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                System.out.println("Do you want to try again? [Y/N]");
+                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                    accNumberFlag6=true;
+                                    continue;
+                                }
+                        }
+                        for(int i=0;i<clients.length;i++){
+                            if(clients[i][0].equalsIgnoreCase(accNumber)){
+                                index=i;
+                            }
+                        }
+            
+                        if(index==-1){
+                            System.out.printf("%sNot Found%s",COLOR_RED_BOLD,RESET);
+                                System.out.println();
+                                System.out.println("Do you want to try again? [Y/N]");
+                                if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                                    accNumberFlag6=true;
+                                    continue;
+                                }
+                        }
+                        }while(accNumberFlag6);
+
+                        if(index>-1){
+                            System.out.printf("Name: %s",clients[index][1]); 
+                            System.out.println();
+                            System.out.printf("Current Account Balance: Rs.%,.2f",Double.parseDouble(clients[index][2]));
+                            System.out.println();
+                        }  
+
+                        System.out.println();
+                        System.out.println("Are you sure to delete ? [y/n]");
+                        if (scanner.nextLine().strip().toUpperCase().equals("Y")){
+                        String[][] newClients=new String[clients.length-1][3];
+
+                        for(int i=0;i<clients.length;i++){
+                                if(!clients[i][0].equalsIgnoreCase(accNumber)){
+                                newClients[i]=clients[i];
+                                }    
+                        }
+
+                        clients=newClients;
+                
+                        }else {
+                            deleteAccountFlag6=true;
+                        }                
+
+        }while(deleteAccountFlag6);
+
+        return clients;
+    }
+
 }
