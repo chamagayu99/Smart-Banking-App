@@ -58,7 +58,7 @@ public class Demo{
                     oneFlag=false;
                     clients=openAccount(clients);
                     System.out.println(Arrays.toString(clients[0]));
-                    System.out.println("Do you want to add another ? [y/n]");
+                    System.out.print("Do you want to add another ? [y/n]");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         oneFlag=true;
                     }else {
@@ -72,7 +72,7 @@ public class Demo{
                     twoFlag=false;
                     clients=deposits(clients);
                     System.out.println();
-                    System.out.println("Do you want to continue ? [y/n]");
+                    System.out.print("Do you want to continue ? [y/n] ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         twoFlag=true;
                     }else {
@@ -85,7 +85,7 @@ public class Demo{
                 do{
                     threeFlag=false;
                     clients=withdrawals(clients); 
-                    System.out.println("Do you want to continue ? [y/n]");
+                    System.out.print("Do you want to continue ? [y/n] ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         threeFlag=true;
                     }else {
@@ -99,7 +99,7 @@ public class Demo{
                     fourFlag=false;
                     clients=transfer(clients);
                     System.out.println(); 
-                    System.out.println("Do you want to continue ? [y/n]");
+                    System.out.print("Do you want to continue ? [y/n] ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         fourFlag=true;
                     }else {
@@ -113,7 +113,7 @@ public class Demo{
                     fiveFlag=false;
                     clients=checkBalances(clients);
                     System.out.println(); 
-                    System.out.println("Do you want to continue ? [y/n]");
+                    System.out.print("Do you want to continue ? [y/n] ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         fiveFlag=true;
                     }else {
@@ -128,7 +128,7 @@ public class Demo{
                     sixFlag=false;
                     clients=deleteAccount(clients);
                     System.out.println(); 
-                    System.out.println("Do you want to continue ? [y/n]");
+                    System.out.print("Do you want to continue ? [y/n] ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                         sixFlag=true;
                     }else {
@@ -259,6 +259,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag2=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }else if(!accNumber.startsWith("SDB-")){
                             System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
@@ -267,6 +269,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag2=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }
                         String num="";
@@ -279,14 +283,16 @@ public class Demo{
                                 count++;
                             }
                         }
-                        if(count==0 || count<5){
+                        if(count>5 || count<5){
                                 System.out.printf("%sInvalid Acount Number%s",COLOR_RED_BOLD,RESET);
                                 System.out.println();
                                 System.out.println("Do you want to try again? [Y/N]");
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag2=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         for(int i=0;i<clients.length;i++){
                             String id=clients[i][0];
@@ -301,7 +307,9 @@ public class Demo{
                                 System.out.println("Do you want to try again? [Y/N]");
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag2=true;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         }while(accNumberFlag2);
             
@@ -372,6 +380,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag3=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }else if(!accNumber.startsWith("SDB-")){
                             System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
@@ -380,6 +390,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag3=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }
                         String num="";
@@ -399,6 +411,8 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag3=true;
                                     continue;
+                                }else{
+                                break;
                                 }
                         }
                         for(int i=0;i<clients.length;i++){
@@ -414,6 +428,8 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag3=true;
                                     continue;
+                                }else{
+                                break;
                                 }
                         }
                         }while(accNumberFlag3);
@@ -490,6 +506,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag5=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }else if(!accNumber.startsWith("SDB-")){
                             System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
@@ -498,6 +516,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag5=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }
                         String num="";
@@ -517,7 +537,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag5=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         for(int i=0;i<clients.length;i++){
                             if(clients[i][0].equalsIgnoreCase(accNumber)){
@@ -532,7 +554,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag5=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         }while(accNumberFlag5);   
             
@@ -585,6 +609,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag6=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }else if(!accNumber.startsWith("SDB-")){
                             System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
@@ -593,6 +619,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFlag6=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }
                         String num="";
@@ -612,7 +640,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag6=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         for(int i=0;i<clients.length;i++){
                             if(clients[i][0].equalsIgnoreCase(accNumber)){
@@ -627,7 +657,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFlag6=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         }while(accNumberFlag6);
 
@@ -697,6 +729,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFromFlag4=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }else if(!accNumberFrom.startsWith("SDB-")){
                             System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
@@ -705,6 +739,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberFromFlag4=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }
                         String num="";
@@ -724,7 +760,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFromFlag4=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         for(int i=0;i<clients.length;i++){
                             if(clients[i][0].equalsIgnoreCase(accNumberFrom)){
@@ -739,7 +777,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberFromFlag4=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         }while(accNumberFromFlag4);
 
@@ -762,6 +802,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberToFlag4=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }else if(!accNumberTo.startsWith("SDB-")){
                             System.out.printf("%sInvalid Format%s",COLOR_RED_BOLD,RESET);
@@ -770,6 +812,8 @@ public class Demo{
                             if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                 accNumberToFlag4=true;
                                 continue;
+                            }else{
+                                break;
                             }
                         }
                         String num="";
@@ -789,7 +833,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberToFlag4=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         for(int i=0;i<clients.length;i++){
                             if(clients[i][0].equalsIgnoreCase(accNumberTo)){
@@ -804,7 +850,9 @@ public class Demo{
                                 if (scanner.nextLine().strip().toUpperCase().equals("Y")){
                                     accNumberToFlag4=true;
                                     continue;
-                                }
+                                }else{
+                                break;
+                            }
                         }
                         }while(accNumberToFlag4);
 
